@@ -117,6 +117,8 @@ var app = {
             console.log(e);
         });
 
+        console.log(data);
+
         var userLoc = app.store('userLoc');
         var uLat = userLoc[0];
         var uLng = userLoc[1];
