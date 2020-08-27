@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162138337-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-162138337-1');
+    </script>
+    <!-- Icons -->
+    <link rel="apple-touch-icon" sizes="128x128" href="img/128icon.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="img/152icon.png">
+    <link rel="shortcut icon" href="img/128icon.png" type="image/x-icon" />
+    <!-- Bootstrap required meta tags -->
+    <meta name="description" content="A list of restaurants in the Baton Rouge area serving food during the COVID-19 shutdown">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta property="og:image" content="https://brfoodapp.com/img/brfoodappgreentext.png">
+    <meta property="og:title" content="BRFoodApp.com">  
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <!-- Local CSS -->
+    <link rel="stylesheet" type="text/css" href="css/styles.min.css">
+    <!-- JQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <!-- Underscore  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+    <!-- Javascript tags -->
+    <script type="text/javascript" src="form/contactForm.js"></script>
+    <script type="text/javascript" src="form/addRestForm.js"></script>
+    <title>  BRFoodApp</title>
+  </head>
+  <body class="mainBody">
+    <!-- Nav bar -->
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+        <!-- Name and logo -->
+        <a class="navbar-brand text-white font-weight-bolder" id="navBrand" href="#!">
+          <i class="fas fa-utensils"></i>
+          BRFoodApp</a>
+        <button class="navbar-toggler" id="navIcon" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+            <span><i class="fas fa-bars" style="font-size: 26px;"></i></span>
+        </button>
+        <!-- Menu options -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <a class="nav-link text-white" href="#">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white modalLink" data-toggle="modal" data-target="#addrestModal">Add Restaurant</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link text-white modalLink" data-toggle="modal" data-target="#contactModal">Contact</a>
+              </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+              <input class="form-control mr-sm-2" type="search" placeholder="Search Restaurants" id="autocomplete">
+            </form>
+          </div>
+    </nav>
+    <!-- Address bar -->
+    <div class="dimmerSpinner" id="screenDimmer"></div>
+    <div class="spinner-grow text-light dimmerSpinner" id="loadFlasher" role="status" style="display: none;">
+      <span class="sr-only">Loading...</span>
+    </div>
+    <div class="container shadow addyContainer">
+      <div>
+        <h4>Who's Open?</h4>
+        <p>Baton Rouge COVID-19 Restaurant Guide</p> 
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <label for="searchInput" class=" text-light addressBtn" disabled >Address</label>
+          </div>
+          <input type="text" class="form-control" id='searchInput' placeholder='Show results near...'>
+        </div>
+
+        <button class="btn-sm btn-dark btnBehave" id="findMeBtn" type="button" onclick="app.geoFindMe()">
+          Find Me <i class="fas fa-crosshairs"></i>
+        </button>
+        <button class="btn-sm btn-dark btnBehave" id="expandFilter" type="button" data-toggle="collapse" data-target="#filtersDiv">
+          Filter <i class="fas fa-filter"></i>
+        </button>
+        <button class="btn-sm btn-danger btnBehave" id="clearFilter" type="button" style="display: none;" onclick="view.clearFilters()">
+          Clear Filters <i class="fas fa-times"></i>
+        </button>
+        <button class="btn-sm btn-dark btnBehave" id="pickRandomBtn" type="button" onclick="app.triggerRandom()">
+          Random Pick <i class="fas fa-dice"></i>
+        </button>
+        <!-- Begin random modal -->
+        <div class="modal fade" id="randomBox" tabindex="-1" role="dialog">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content randomModal">
+              <div id="injectRandomCard"></div>
+              <div class="modal-footer randomModal">
+                <button class="btn btn-danger btn-block" style="margin-top: -20px;" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div> 
+        </div>   
+        <!-- End random modal -->
+        <div class="collapse" id="filtersDiv">
+          <script id="filterTemplate" type="text/underscore-template">
+            <div class="form-check col-6 col-sm-4 col-md-3 col-lg-2">
+              <input class="form-check-input filterCheck" type="checkbox" value="<%- type %>" id="<%- type %>Check">
+              <label class="form-check-label" for="<%- type %>Check">
+                <%- type %>
+              </label>
+            </div>
+          </script>
+          <div class="card card-body"> 
+            <div class="row filterRows" id="toggleRow" style="margin-bottom: 10px;">
+              <div class="custom-control custom-switch col-12 col-sm-6 col-lg-4 col-xl-2">
+                <input type="checkbox" class="custom-control-input" id="patioToggle">
+                <label class="custom-control-label" for="patioToggle">Patio Open</label>
+              </div>
+              <div class="custom-control custom-switch col-12 col-sm-6 col-lg-4 col-xl-2">
+                <input type="checkbox" class="custom-control-input" id="deliveryOnly">
+                <label class="custom-control-label" for="deliveryOnly">In-House Delivery</label>
+              </div>
+              <div class="custom-control custom-switch col-12 col-sm-6 col-lg-4">
+                <input type="checkbox" class="custom-control-input" id="onlineOnly">
+                <label class="custom-control-label" for="onlineOnly">Online Ordering</label>
+              </div>
+            </div>
+            <div class="row filterRows" id="filterBody">
+              <!-- inserted filter list -->
+            </div>
+          </div>
+          <button class="btn-sm btn-success btnBehave" id="expandFilter" type="button" data-toggle="collapse" data-target="#filtersDiv" onclick="view.filterList()">Apply Filters</button>
+        </div>
+      </div> 
+      <p class="" id="filterListP" style="display: none; padding-bottom: 10px;" ></p>
+    </div>
+    <div class="container">
+      <br>
+      <div class="row" id="mainList">
+      </div> <!-- End main list row -->
+    </div> <!-- End main list container -->
+    <!-- underscore card template -->
+    <script id="cardTemplate" type="text/underscore-template">
+      <div class="col-sm-12 col-md-6 col-lg-4 mb-3 mainListChild" id=<%- _id %>>
+        <div class="card mb-3 h-100 shadow restCard"> 
+          <img class="card-img-top" src="<%- imageBuffer %>" alt="Card image cap">
+          <div class="row" id="distanceBadge" style="display: <% if(distance === '') { print('none')}else{ print(distance) } %>">
+            <div class="col-8 col-md-8 col-lg-7 col-xl-8"></div>
+            <div class="col-4 col-lg-5 col-xl-4">
+              <span class="badge text-light"> <%- distance %> mi</span>
+            </div> 
+          </div>
+          <div class="card-body">
+            <h5 class="card-title" id="restName"><%- name %></h5>
+            <p class="card-text" id="address"><%- address %></p>
+            <p class="card-text cardSpacing" id="address"><%- phone %></p>
+            <p class="card-text cardSpacing" id="meals">Meals: <%- meals %></p> 
+            <div class="row iconRow">
+              <div class="col-6 col-lg-7 col-xl-6">
+              <i class="fas fa-phone icon <% phoneOrder === true ? print('yes') : print('') %>"></i>
+              <label class="font-italic <% phoneOrder === true ? print('text-muted') : print('lightText') %>">Call-in</label> 
+              </div> 
+              <div class="col-6 col-lg-5 col-xl-6">
+                <i class="fas fa-shopping-bag icon <% pickup === true ? print('yes') : print('') %>"></i>
+                <label class="font-italic <% pickup === true ? print('text-muted') : print('lightText') %>">Pickup</label> 
+              </div>
+              <div class="col-6 col-lg-7 col-xl-6">
+                <i class="fas fa-mouse icon <% onlineOrder === true ? print('yes') : print('') %>"></i>
+                <label class="font-italic <% onlineOrder === true ? print('text-muted') : print('lightText') %>">Web order</label> 
+              </div>              
+              <div class="col-6 col-lg-5 col-xl-6">
+                <i class="fas fa-car icon <% delivery === true ? print('yes') : print('') %>"></i>
+                <label class="font-italic <% delivery === true ? print('text-muted') : print('lightText') %>">Delivery</label> 
+              </div>  
+              <div class="col-12">
+                <i class="fas fa-mobile-alt icon <% apps === true ? print('yes') : print('') %>"></i>
+                <label class="font-italic <% apps === true ? print('text-muted') : print('lightText') %>">Delivery via Waitr/Uber Eats/etc.</label> 
+              </div>
+              <div class="col-12">
+                <i class="fas fa-cloud-sun icon <% patio === true ? print('yes') : print('') %>"></i>
+                <label class="font-italic <% patio === true ? print('text-muted') : print('lightText') %>">Patio/Outdoor Seating Open</label> 
+              </div> 
+            </div>
+          </div>
+          <div class="card-footer linkFooter">
+            <div class='col-12 callLink'>
+              <a class=" btn btn-success float-left d-sm-none text-light callNowBtn" role="button" onclick="window.location.href='tel:<%- phone %>';">
+                <i class="fas fa-phone"> Call</i>
+              </a>
+            </div>
+            <div class='col-12 webLink'>
+              <a class=" btn btn-outline-primary float-right" href="<%- url  %>" role="button" target="_blank">View Website
+                <i class="far fa-arrow-alt-circle-right"></i>
+              </a>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </script><!-- End underscore card template -->
+    <!-- Contact modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Contact BRFoodApp</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          <div class="modal-body"> <!-- Begin contact modal body -->
+            <div class="modal-body">
+              <form role="form">
+                <div class="form-group">
+                  <label for="inputName">Name</label>
+                  <input type="text" class="form-control" id="inputName" placeholder="Enter your name"/>
+                </div>
+                <div class="form-group">
+                  <label for="inputEmail">Email</label>
+                  <input type="email" class="form-control" id="inputEmail" placeholder="Enter your email"/>
+                </div>
+                <div class="form-group">
+                  <label for="inputMessage">Message</label>
+                  <textarea class="form-control" id="inputMessage" placeholder="Enter your message"></textarea>
+                </div>
+              </form>
+            </div>
+          </div> <!-- End contact modal body -->
+          <div class="modal-footer"> <!-- Begin contact modal footer -->
+            <div class="alert alert-success" id="contactSuccessText" style="display: none;"><strong>Success!</strong> Thanks for your submission!</div>
+            <div class="alert alert-danger" id="contactErrorText" style="display: none;"><strong>Oh snap!</strong> Something went wrong. Please, try again.</div>
+            <div>
+              <button type="button" class="btn btn-default btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary modalSubmit" id="contactModal"  onclick="submitContactForm()">Submit</button> 
+            </div>
+          </div>
+        </div><!-- End contact modal footer -->
+      </div>
+    </div><!-- End contact modal -->
+    <!-- Add restaurant modal -->
+    <div class="modal fade" id="addrestModal" tabindex="-1" role="dialog">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h4 class="modal-title" id="myModalLabel">Add a Restaurant</h4>
+            <button type="button" class="close" data-dismiss="modal">
+              <span aria-hidden="true">x</span>
+            </button>
+          </div>
+          <div class="modal-body"> <!-- Begin add restaurant modal body -->
+            <div class="modal-body">
+              <p class="statusMsg"></p>
+              <form role="form">               
+                <div class="form-group">
+                  <label for="restaurantName">Restaurant Name</label>
+                  <input type="text" class="form-control" id="restaurantName" placeholder="Restaurant Name"/>
+                </div>                
+                <div class="form-group">
+                  <label for="restAddress">Street Name</label>
+                  <input type="text" class="form-control" id="restAddress" placeholder="Street Name"/>
+                </div>
+                <label for="restAddress">Cuisine Type</label>
+                <div class="row" id="cusineList" style="margin-left: 10px;"></div>                
+              </form>
+            </div>
+          </div> <!-- End add restaurant modal body -->
+          <div class="modal-footer"> <!-- Begin add restaurant modal footer -->
+            <div class="alert alert-success" id="addRestSuccessText" style="display: none;"><strong>Success!</strong> Thanks for your submission!</div>
+            <div class="alert alert-danger" id="addRestErrorText" style="display: none;"><strong>Oh snap!</strong> Something went wrong. Please, try again.</div>
+            <div>  
+              <button type="button" class="btn btn-default btn-outline-danger" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary modalSubmit" id="addRestSubmit" onclick="submitAddRestForm()">Submit</button> 
+            </div>
+          </div>
+        </div><!-- End add restaurant modal footer -->
+      </div>
+    </div><!-- End add restaurant modal -->
+    <!-- Add restaurant modal cuisine types template -->
+    <script id="restCuisineType" type="text/underscore-template">
+      <div class="form-check col-6">
+        <input class="form-check-input addRestCuisineType" type="checkbox" value="<%- type %>" id="<%- type %>Cuisine">
+        <label class="form-check-label" for="<%- type %>Cuisine"> <%- type %> </label>
+      </div>
+    </script>
+    <!-- End add restaurant modal cuisine types template -->
+    <div class="container">
+      <div class="row">
+        <div class="col-12 loadMoreDiv" style="display: none;">
+        <button class="btn btn-success col-12 d-none d-md-block loadMoreClass" id="loadMoreBtnLg">
+          <i class="fas fa-chevron-circle-down" style="color: rgb(129, 219, 129);"></i> Load More</button> 
+        </div>
+      </div>
+    </div>
+    <br>
+    <div class="loadMoreDiv" style="display: none; ">
+      <button class="btn btn-success d-md-none loadMoreClass" style="width: 100%;" id="loadMoreBtnSm" >
+        <i class="fas fa-chevron-circle-down" style="color: rgb(129, 219, 129);"></i> Load More</button> 
+    </div>
+    <br>
+    <br>
+    <script type="text/javascript" src="js\jquery.autocomplete.min.js"></script><!-- devbridge/jQuery-Autocomplete -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script src="https://kit.fontawesome.com/213e506fd2.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXBaByPfqkx5SsuE5ytDREp3Zz9Z0WDlo&libraries=places&callback=app.autoComp"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <footer class=" bg-dark page-footer font-small special-color-dark pt-4">
+      <!-- Footer Elements -->
+      <div class="container">
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center">  
+        </div>
+      </div>
+    </footer> <!-- Footer -->
+  </body>
+</html>
