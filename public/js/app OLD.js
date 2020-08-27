@@ -23,9 +23,17 @@ var app = {
                 localStorage.clear();
             }
         }
+        //Check if the length is the same for both arrays, indicating a change
+        //to the main list. Update the data if they are not the same.
+        var restArray = app.store('restArray')
+        if(Boolean(restArray)) {
+            if(restList.length !== restArray.length) {
+                app.prepData();
+            }
+        }
 
         $('#autocomplete').autocomplete({
-            lookup: app.store('restArray'),
+            lookup: searchAutoCompArray,
             lookupLimit: 6,
             width: 'auto',
             showNoSuggestionNotice: true,
@@ -119,7 +127,7 @@ var app = {
         //Will take the universal restuarant array, create a new array, sort it based on which locations
         //are closest to the user and store it in localStorage. This way we don't have to run
         //this function every time a user refreshes the page or visits the site.  
-        var data = app.store('restList');
+        var data = restList;
         var userLoc = app.store('userLoc');
         var uLat = userLoc[0];
         var uLng = userLoc[1];
@@ -268,6 +276,9 @@ var view = {
         //Check is the pre-sorted restArray is in local storage
         //If not we will use the main restuarant list in it's original order.
         var restArray = app.store('restArray');
+        if(!Boolean(restArray)) {
+            var restArray = restList;
+        }
 
         var mainListNodes = document.querySelectorAll('div.mainListChild');
         var mainListNodesLength = mainListNodes.length
