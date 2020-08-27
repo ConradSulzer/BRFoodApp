@@ -111,7 +111,7 @@ var app = {
         //Will take the universal restuarant array, create a new array, sort it based on which locations
         //are closest to the user and store it in localStorage. This way we don't have to run
         //this function every time a user refreshes the page or visits the site.  
-        var data = fetch('localhost:3000/restList').then((dataArray) => {
+        var data = fetch('https://brfoodapp.herokuapp.com/restList').then((dataArray) => {
             return dataArray
         }).catch((e) => {
             console.log(e);
