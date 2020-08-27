@@ -42,12 +42,9 @@ var app = {
         app.eventliseners();
     },
 
-    fetchRestList: function () {
-        const data = fetch('https://brfoodapp.herokuapp.com/restList').then((dataArray) => {
-            app.store('restArray', data)
-        }).catch((e) => {
-            console.log(e);
-        });
+    fetchRestList: async function () {
+        const data = await fetch('https://brfoodapp.herokuapp.com/restList');
+        app.store('restArray', data);
     },
 
     eventliseners: function() {
