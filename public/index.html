@@ -38,7 +38,7 @@
   </head>
   <body class="mainBody">
     <!-- Nav bar -->
-    <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark title-bar">
         <!-- Name and logo -->
         <a class="navbar-brand text-white font-weight-bolder" id="navBrand" href="#!">
           <i class="fas fa-utensils"></i>
@@ -46,7 +46,7 @@
         <button class="navbar-toggler" id="navIcon" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
             <span><i class="fas fa-bars" style="font-size: 26px;"></i></span>
         </button>
-        <!-- Menu options 
+        <!-- Menu options -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
               <li class="nav-item">
@@ -59,18 +59,16 @@
                 <a class="nav-link text-white modalLink" data-toggle="modal" data-target="#contactModal">Contact</a>
               </li>
             </ul>
-            -->
-            <form class="form-inline my-2 my-lg-0">
-              <input class="form-control mr-sm-2" type="search" placeholder="Search Restaurants" id="autocomplete">
-            </form>
+            
+            <div class="autocomplete-div">
+              <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2 " type="search" placeholder="Search Restaurants" id="autocomplete">
+              </form>
+            </div>
           </div>
           
     </nav>
     <!-- Address bar -->
-    <div class="dimmerSpinner" id="screenDimmer"></div>
-    <div class="spinner-grow text-light dimmerSpinner" id="loadFlasher" role="status" style="display: none;">
-      <span class="sr-only">Loading...</span>
-    </div>
     <div class="container shadow addyContainer">
       <div>
         <h4>Who's Open?</h4>
@@ -141,7 +139,12 @@
     </div>
     <div class="container">
       <br>
-      <div class="row" id="mainList">
+
+      <div class="loader-circle">
+          <img class="loader-circle__image" src="/public/img/loader.gif" >
+      </div>
+
+      <div class="row" id="mainList" style="display: none;">
       </div> <!-- End main list row -->
     </div> <!-- End main list container -->
     <!-- underscore card template -->
@@ -302,13 +305,7 @@
     </div>
     <br>
     <br>
-    
-    <script type="text/javascript" src="js/app.js"></script>
-    <script src="https://kit.fontawesome.com/213e506fd2.js" crossorigin="anonymous"></script>
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXBaByPfqkx5SsuE5ytDREp3Zz9Z0WDlo&libraries=places&callback=app.autoComp"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
-    <footer class=" bg-dark page-footer font-small special-color-dark pt-4">
+    <footer class=" bg-dark page-footer font-small special-color-dark pt-4" style="display: none;">
       <!-- Footer Elements -->
       <div class="container">
         <!--Grid row-->
@@ -316,5 +313,10 @@
         </div>
       </div>
     </footer> <!-- Footer -->
+    <script type="text/javascript" src="js/app.js"></script>
+    <script src="https://kit.fontawesome.com/213e506fd2.js" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCXBaByPfqkx5SsuE5ytDREp3Zz9Z0WDlo&libraries=places&callback=app.autoComp"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
   </body>
 </html>

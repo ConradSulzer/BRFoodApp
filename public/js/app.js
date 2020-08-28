@@ -1,6 +1,7 @@
 var app = {
     restList: [],
     init: function () {
+        app.loading(true, 'circle');
         //Checks sessionStorage to see if there is a settings object.
         //Creates one defaulted to all false if not. 
         var settings = app.sessStore('settings');
@@ -27,7 +28,6 @@ var app = {
 
         app.fetchRestList().then(() => {
             view.render();
-            app.screenDimmer(false);
             app.eventliseners();
 
             $('#autocomplete').autocomplete({
@@ -55,7 +55,6 @@ var app = {
 
     fetchRestList: async function () {
         let restList = ''
-        app.screenDimmer(true);
 
         return new Promise((resolve, reject) => {
             fetch('https://brfoodapp.herokuapp.com/restList').then((response) => {
@@ -228,7 +227,6 @@ var app = {
         randomizerDiv.innerHTML = templateHTML;
         document.querySelector('.mainListChild').className = '';
         $('#randomBox').modal('show');
-        app.screenDimmer(false);
     },
 
     store: function (namespace, obj) {
@@ -255,13 +253,28 @@ var app = {
         }
     },
 
-    screenDimmer: function (bool) {
-        document.getElementById('screenDimmer').style.display = (bool ? 'block' : 'none');
-        document.getElementById('loadFlasher').style.display = (bool ? 'block' : 'none');
+    loading: function (bool, loader) {
+        if(loader === 'circle') {
+            const footer = document.querySelector('footer');
+            const mainList = document.getElementById('mainList');
+            const loadMoreBtn = document.querySelector('.loadMoreDiv')
+            
+
+            if (bool) {
+                footer.style.display = 'none';
+                mainList.style.display = 'none';
+                loadMoreBtn.style.display = 'none';
+            }else {
+                
+            }
+        }
+
+        if(loader === 'line') {
+
+        }
     },
 
     triggerRandom: function () {
-        app.screenDimmer(true);
         var restArray = app.restList;
 
         var randInt = Math.floor(Math.random() * Math.floor(restArray.length));
@@ -298,7 +311,6 @@ var view = {
     },
 
     populateList: function () {
-        app.screenDimmer(true);
 
         //Check is the pre-sorted restArray is in local storage
         //If not we will use the main restuarant list in it's original order.
@@ -383,7 +395,6 @@ var view = {
                 loadMoreDivs[i].style.display = 'none';
             }
         }
-        app.screenDimmer(false);
     },
 
     renderFilter: function () {
