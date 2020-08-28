@@ -19,6 +19,10 @@ app.get('/restList', async (req, res) => {
     res.send(restArray);
 });
 
+app.get('/img/:id', async (req, res) => {
+    res.sendFile(public + `/img/rest_jpg/${req.params.id}`)
+});
+
 app.listen(PORT, () => {
     console.log('Server runnig on port', PORT);    
 });
