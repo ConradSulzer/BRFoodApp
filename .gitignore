@@ -6,7 +6,6 @@ node_modules/
 restDb
 public/img
 .env
-server/img
 server/img_buffer.js
 server/add.js
 server/writer.js

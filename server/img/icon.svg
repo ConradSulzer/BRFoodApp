@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   aria-hidden="true"
+   focusable="false"
+   data-prefix="fas"
+   data-icon="utensils"
+   class="svg-inline--fa fa-utensils fa-w-13"
+   role="img"
+   viewBox="0 0 416 512"
+   version="1.1"
+   id="svg827"
+   sodipodi:docname="icon.svg"
+   inkscape:export-filename="C:\Users\conra\OneDrive\Projects\BRFoodApp\img\128icon.png"
+   inkscape:export-xdpi="300"
+   inkscape:export-ydpi="300"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)">
+  <metadata
+     id="metadata833">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <defs
+     id="defs831" />
+  <sodipodi:namedview
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1"
+     objecttolerance="10"
+     gridtolerance="10"
+     guidetolerance="10"
+     inkscape:pageopacity="0"
+     inkscape:pageshadow="2"
+     inkscape:window-width="1920"
+     inkscape:window-height="1017"
+     id="namedview829"
+     showgrid="false"
+     inkscape:zoom="1.65625"
+     inkscape:cx="56.170242"
+     inkscape:cy="519.95434"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="svg827" />
+  <rect
+     style="fill:#55008a;fill-opacity:1;stroke:none;stroke-width:0.67015487;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+     id="rect835"
+     width="152"
+     height="152"
+     x="39.05872"
+     y="-184.54666"
+     inkscape:export-filename="C:\Users\conra\OneDrive\Projects\BRFoodApp\img\152icon.png"
+     inkscape:export-xdpi="300"
+     inkscape:export-ydpi="300" />
+  <path
+     d="m 115.03761,-159.37291 c 0.16886,0.99204 3.39827,19.94641 3.39827,27.18621 0,11.03912 -5.86783,18.91215 -14.54293,22.07824 l 2.72284,50.256491 c 0.14775,2.8917 -2.15294,5.340149 -5.06575,5.340149 H 88.041358 c -2.891702,0 -5.213504,-2.42734 -5.065753,-5.340149 l 2.722845,-50.256491 c -8.696207,-3.16609 -14.542925,-11.06022 -14.542925,-22.07824 0,-7.26091 3.229413,-26.19417 3.398268,-27.18621 0.675438,-4.28478 9.561608,-4.34809 10.110401,0.2322 v 29.8035 c 0.274396,0.71766 3.187202,0.67543 3.377164,0 0.295502,-5.34015 1.667483,-29.38136 1.688588,-29.93015 0.696544,-4.39033 9.434962,-4.39033 10.110401,0 0.04226,0.56989 1.393083,24.59 1.688593,29.93015 0.18996,0.67543 3.12387,0.71766 3.37716,0 v -29.8035 c 0.54879,-4.5592 9.45607,-4.51698 10.13151,-0.2322 z m 25.1599,60.303568 -3.16609,39.069621 c -0.25329,2.955023 2.08961,5.487901 5.04465,5.487901 h 11.82009 c 2.80727,0 5.06577,-2.258482 5.06577,-5.065755 v -97.937895 c 0,-2.78616 -2.2585,-5.06574 -5.06577,-5.06574 -17.41354,0 -46.73158,37.67654 -13.69865,63.511868 z"
+     id="path825"
+     inkscape:connector-curvature="0"
+     style="fill:#ffcc00;stroke-width:0.21107304"
+     inkscape:export-filename="C:\Users\conra\OneDrive\Projects\BRFoodApp\img\152icon.png"
+     inkscape:export-xdpi="300"
+     inkscape:export-ydpi="300" />
+</svg>
