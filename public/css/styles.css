@@ -155,8 +155,8 @@ body {
 }
 
 .loader-circle__image {
-    height: 6rem;
-    width: 6rem;
+    height: 3rem;
+    width: 3rem;
 }
 
 .loader-circle-line {
