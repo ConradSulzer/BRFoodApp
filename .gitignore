@@ -4,7 +4,7 @@ listBackups/
 Bugz.txt
 node_modules/
 restDb
-public/img
+server/img
 .env
 server/img_buffer.js
 server/add.js
