@@ -10,3 +10,8 @@ server/img_buffer.js
 server/add.js
 server/writer.js
 server/views
+public/js/app OLD.js
+public/img/new_img
+public/js/geolocate.js
+public/js/list.js
+public/js/listaddons.js

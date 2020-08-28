@@ -1,5 +1,5 @@
 var app = {
-    restList: '',
+    restList: [],
     init: function () {
         //Checks sessionStorage to see if there is a settings object.
         //Creates one defaulted to all false if not. 
@@ -23,25 +23,33 @@ var app = {
             }
         }
 
-        $('#autocomplete').autocomplete({
-            lookup: app.restList,
-            lookupLimit: 6,
-            width: 'auto',
-            showNoSuggestionNotice: true,
-            noSuggestionNotice: 'No matching results...',
-
-            onSelect: function (suggestion) {
-                document.getElementById('autocomplete').value = '';
-                app.popUpCard(restList[suggestion.data]);
-            }
-        });
-
         window.sessionStorage.removeItem('filter');
 
         app.fetchRestList().then(() => {
             view.render();
             app.screenDimmer(false);
             app.eventliseners();
+
+            $('#autocomplete').autocomplete({
+                source: app.restList.map((rest) => { 
+                    return { 
+                        label: rest.name,
+                        value: rest.name, 
+                        id: rest._id
+                    } 
+                })
+            }, {
+                autoFocus: true,
+                delay: 0,
+                minLength: 3,
+
+                select: function (event, ui) {
+                    const selectedRestaurantID = ui.item.id;
+                    const result = app.restList.find(rest => rest._id === selectedRestaurantID);
+                    $('#autocomplete').autocomplete('close');
+                    app.popUpCard(result);
+                }
+            });
         });
     },
 
@@ -255,7 +263,7 @@ var app = {
     triggerRandom: function () {
         app.screenDimmer(true);
         var restArray = app.restList;
-        
+
         var randInt = Math.floor(Math.random() * Math.floor(restArray.length));
         var winner = restArray[randInt];
 

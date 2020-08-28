@@ -48,7 +48,6 @@ const masterListSchema = new mongoose.Schema({
     apps: Boolean,
     distance: String,
     patio: Boolean,
-    imageBuffer: String
 });
 
 const MasterList = mongoose.model('masterList', masterListSchema);
