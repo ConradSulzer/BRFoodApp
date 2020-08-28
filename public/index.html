@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     
     <!-- Local CSS -->
-    <link rel="stylesheet" type="text/css" href="css/styles.min.css">
+    <link rel="stylesheet" type="text/css" href="css/styles.css">
 
     <!-- Underscore  -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
@@ -48,25 +48,18 @@
         </button>
         <!-- Menu options -->
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a class="nav-link text-white" href="#">Home</a>
-              </li>
+            <!--<ul class="navbar-nav mr-auto">
               <li class="nav-item">
                 <a class="nav-link text-white modalLink" data-toggle="modal" data-target="#addrestModal">Add Restaurant</a>
               </li>
               <li class="nav-item">
                 <a class="nav-link text-white modalLink" data-toggle="modal" data-target="#contactModal">Contact</a>
               </li>
-            </ul>
-            
-            <div class="autocomplete-div">
-              <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2 " type="search" placeholder="Search Restaurants" id="autocomplete">
-              </form>
-            </div>
+            </ul>-->
           </div>
-          
+          <div class="autocomplete-div">
+            <input class="form-control mr-sm-2 " type="search" placeholder="Search Restaurants" id="autocomplete">
+          </div>
     </nav>
     <!-- Address bar -->
     <div class="container shadow addyContainer">
@@ -244,6 +237,8 @@
         </div><!-- End contact modal footer -->
       </div>
     </div><!-- End contact modal -->
+
+
     <!-- Add restaurant modal -->
     <div class="modal fade" id="addrestModal" tabindex="-1" role="dialog">
       <div class="modal-dialog">
@@ -257,7 +252,7 @@
           <div class="modal-body"> <!-- Begin add restaurant modal body -->
             <div class="modal-body">
               <p class="statusMsg"></p>
-              <form role="form">               
+              <form role="form" onsubmit="">               
                 <div class="form-group">
                   <label for="restaurantName">Restaurant Name</label>
                   <input type="text" class="form-control" id="restaurantName" placeholder="Restaurant Name"/>
@@ -282,6 +277,8 @@
         </div><!-- End add restaurant modal footer -->
       </div>
     </div><!-- End add restaurant modal -->
+
+
     <!-- Add restaurant modal cuisine types template -->
     <script id="restCuisineType" type="text/underscore-template">
       <div class="form-check col-6">
@@ -290,7 +287,13 @@
       </div>
     </script>
     <!-- End add restaurant modal cuisine types template -->
+
+
     <div class="container">
+      <div class="loader-circle-line" style="display: none;">
+        <img class="loader-circle-line__image" src="https://brfoodapp.herokuapp.com/img/loader_line.gif" >
+      </div>
+
       <div class="row">
         <div class="col-12 loadMoreDiv" style="display: none;">
         <button class="btn btn-success col-12 d-none d-md-block loadMoreClass" id="loadMoreBtnLg">

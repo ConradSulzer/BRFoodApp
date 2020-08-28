@@ -149,12 +149,23 @@ body {
 .loader-circle {
     align-items: center;
     display: flex;
-    height: 100vh;
     justify-content: center;
-    width: 100vw;
+    margin-top: 8rem;
+    
 }
 
 .loader-circle__image {
     height: 6rem;
     width: 6rem;
+}
+
+.loader-circle-line {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.loader-circle-line__image {
+    height: 4rem;
+    width: 4rem;
 }

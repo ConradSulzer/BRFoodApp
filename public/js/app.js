@@ -125,6 +125,7 @@ var app = {
                 for (var i = 0; i < loadMoreDivs.length; i++) {
                     loadMoreDivs[i].style.display = 'none';
                 }
+                app.loading(true, 'line');
                 setTimeout(view.populateList, 15);
             })
         }
@@ -220,6 +221,7 @@ var app = {
     },
 
     popUpCard: function (obj) {
+        app.loading(false, 'circle');
         var randomizerDiv = document.getElementById('injectRandomCard');
         var cardTemplate = document.getElementById("cardTemplate").innerHTML;
         var templateFn = _.template(cardTemplate);
@@ -258,28 +260,38 @@ var app = {
             const footer = document.querySelector('footer');
             const mainList = document.getElementById('mainList');
             const loadMoreBtn = document.querySelector('.loadMoreDiv')
-            
+            const loaderCircle = document.querySelector('.loader-circle')
 
             if (bool) {
                 footer.style.display = 'none';
                 mainList.style.display = 'none';
                 loadMoreBtn.style.display = 'none';
+                loaderCircle.style.display = 'flex';
+
             }else {
-                
+                footer.style.display = '';
+                mainList.style.display = '';
+                loadMoreBtn.style.display = '';
+                loaderCircle.style.display = 'none';
             }
         }
 
         if(loader === 'line') {
-
+            const loaderLine = document.querySelector('.loader-circle-line');
+            
+            if(bool) {
+                loaderLine.style.display = 'flex';
+            }else {
+                loaderLine.style.display = 'none';
+            }
         }
     },
 
     triggerRandom: function () {
+        app.loading(true, 'circle');
         var restArray = app.restList;
-
         var randInt = Math.floor(Math.random() * Math.floor(restArray.length));
         var winner = restArray[randInt];
-
         setTimeout(function () { app.popUpCard(winner) }, 2000);
     }
 }
@@ -307,6 +319,7 @@ var view = {
         document.getElementById('patioToggle').checked = settings['patio'];
 
         view.populateList();
+        app.loading(false, 'circle');
         view.renderFilter();
     },
 
@@ -386,6 +399,8 @@ var view = {
                 break;
             }
         }
+
+        app.loading(false, 'line');
 
         var loadMoreDivs = document.getElementsByClassName('loadMoreDiv');
         for (var i = 0; i < loadMoreDivs.length; i++) {
